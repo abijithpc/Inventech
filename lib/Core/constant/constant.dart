@@ -7,6 +7,7 @@ Color kBlack = Colors.black;
 
 //TextColor
 TextStyle whiteTextStyle = TextStyle(color: Colors.white);
+TextStyle redTextStyle = TextStyle(color: Colors.red);
 
 //Email and Password
 

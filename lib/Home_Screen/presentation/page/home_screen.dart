@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inventech/Core/constant.dart';
+import 'package:inventech/Core/constant/constant.dart';
 import 'package:inventech/Home_Screen/presentation/Widget/dashboard.dart';
 import 'package:inventech/Home_Screen/presentation/Widget/showcupertinodialog.dart';
 import 'package:inventech/Login_page/presentation/Bloc/login_bloc.dart';

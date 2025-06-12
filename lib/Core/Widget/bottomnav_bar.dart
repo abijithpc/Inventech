@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inventech/Core/constant.dart';
+import 'package:inventech/Core/constant/constant.dart';
 import 'package:inventech/Home_Screen/presentation/Widget/dashboard.dart';
 import 'package:inventech/Home_Screen/presentation/page/home_screen.dart';
+import 'package:inventech/Product_Page/presentation/pages/add_product_page.dart';
+import 'package:inventech/Product_Page/presentation/pages/product_list_page.dart';
+import 'package:inventech/Profile_page/presentation/pages/profile_page.dart';
 
 class BottomnavBar extends StatefulWidget {
   const BottomnavBar({super.key});
@@ -16,8 +19,9 @@ class _BottomnavBarState extends State<BottomnavBar> {
 
   final List<Widget> pages = [
     HomeScreen(),
-    Center(child: Text('Orders Page', style: TextStyle(fontSize: 18))),
-    Center(child: Text('Profile Page', style: TextStyle(fontSize: 18))),
+    ProductListPage(),
+    AddProductPage(),
+    // ProfilePage(),
   ];
 
   @override
@@ -56,7 +60,7 @@ class _BottomnavBarState extends State<BottomnavBar> {
             topRight: Radius.circular(25),
           ),
           child: BottomNavigationBar(
-            backgroundColor: Colors.white,
+            backgroundColor: kBlue,
             currentIndex: currentIndex,
             selectedItemColor: Colors.blueAccent,
             unselectedItemColor: Colors.grey,
@@ -78,13 +82,18 @@ class _BottomnavBarState extends State<BottomnavBar> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_bag_outlined),
                 activeIcon: Icon(Icons.shopping_bag),
-                label: 'Orders',
+                label: 'Product',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
+                icon: Icon(Icons.add),
                 activeIcon: Icon(Icons.person),
-                label: 'Profile',
+                label: 'Add Product',
               ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.person_outline),
+              //   activeIcon: Icon(Icons.person),
+              //   label: 'Profile',
+              // ),
             ],
           ),
         ),

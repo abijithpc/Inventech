@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventech/Core/Widget/bottomnav_bar.dart';
-import 'package:inventech/Core/constant.dart';
-import 'package:inventech/Core/textform_widget.dart';
+import 'package:inventech/Core/constant/constant.dart';
+import 'package:inventech/Core/Widget/textform_widget.dart';
 import 'package:inventech/Home_Screen/presentation/page/home_screen.dart';
 import 'package:inventech/Login_page/presentation/Bloc/login_bloc.dart';
 import 'package:inventech/Login_page/presentation/Bloc/login_event.dart';

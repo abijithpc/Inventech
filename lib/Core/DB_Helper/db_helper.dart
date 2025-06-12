@@ -1,4 +1,4 @@
-import 'package:inventech/Core/constant.dart';
+import 'package:inventech/Core/constant/constant.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
