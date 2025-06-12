@@ -7,16 +7,21 @@ import 'package:inventech/Product_Page/presentation/Bloc/product_event.dart';
 import 'package:inventech/Product_Page/presentation/pages/product_detail_page.dart';
 import 'package:inventech/Product_Page/presentation/widget/delete_dialog.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   List<ProductModel> products;
   ProductCard({super.key, required this.products});
 
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: GridView.builder(
-        itemCount: products.length,
+        itemCount: widget.products.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
@@ -24,7 +29,7 @@ class ProductCard extends StatelessWidget {
           childAspectRatio: 0.8,
         ),
         itemBuilder: (context, index) {
-          final product = products[index];
+          final product = widget.products[index];
           final imagePath =
               product.images.isNotEmpty ? product.images.first : null;
 

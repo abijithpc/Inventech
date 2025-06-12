@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inventech/Core/constant/constant.dart';
+import 'package:inventech/Home_Screen/presentation/Widget/month_widget.dart';
 import 'package:inventech/Product_Page/data/Datasource/product_local_datasource.dart';
 import 'package:inventech/Product_Page/data/Model/product_model.dart';
 
@@ -20,26 +21,6 @@ class _DashBoardState extends State<DashBoard> {
   void initState() {
     super.initState();
     productsFuture = ProductLocalDatasource().getProducts();
-  }
-
-  String _monthLabel(String date) {
-    final parts = date.split('-');
-    final monthNum = int.parse(parts[1]);
-    const monthNames = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return "${monthNames[monthNum - 1]} '${parts[0].substring(2)}";
   }
 
   @override
@@ -62,30 +43,15 @@ class _DashBoardState extends State<DashBoard> {
         }
 
         final sortedKeys = monthlyCount.keys.toList()..sort();
-        final colors = [
-          Colors.blue,
-          Colors.green,
-          Colors.orange,
-          Colors.purple,
-          Colors.red,
-          Colors.indigo,
-          Colors.teal,
-          Colors.pink,
-          Colors.cyan,
-          Colors.brown,
-          Colors.lime,
-          Colors.amber,
-        ];
 
         final pieSections =
             sortedKeys.asMap().entries.map((entry) {
               final index = entry.key;
               final key = entry.value;
               final count = monthlyCount[key]!;
-              final percentage = (count / totalCount) * 100;
 
               return PieChartSectionData(
-                color: colors[index % colors.length],
+                color: chatcolors[index % chatcolors.length],
                 value: count.toDouble(),
                 title: '$count',
                 radius: 70,
@@ -101,6 +67,7 @@ class _DashBoardState extends State<DashBoard> {
           padding: const EdgeInsets.fromLTRB(20, 105, 20, 25),
           child: Column(
             children: [
+              Text('DashBoard', style: TextStyle(color: kBlack, fontSize: 28)),
               // Total Products Card
               Material(
                 elevation: 10,
@@ -185,14 +152,14 @@ class _DashBoardState extends State<DashBoard> {
                       children:
                           sortedKeys.asMap().entries.map((entry) {
                             final index = entry.key;
-                            final label = _monthLabel(entry.value);
+                            final label = monthLabel(entry.value);
                             return Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Container(
                                   width: 12,
                                   height: 12,
-                                  color: colors[index % colors.length],
+                                  color: chatcolors[index % chatcolors.length],
                                 ),
                                 const SizedBox(width: 4),
                                 Text(

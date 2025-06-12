@@ -44,7 +44,7 @@ class ProductDetailPage extends StatelessWidget {
                 options: CarouselOptions(
                   height: 250,
                   enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
+                  enableInfiniteScroll: true,
                   autoPlay: true,
                 ),
               ),
@@ -91,6 +91,7 @@ class ProductDetailPage extends StatelessWidget {
             // Price
             const SizedBox(height: 16),
 
+            Divider(thickness: 2),
             // Description
             Text(
               "Description:",

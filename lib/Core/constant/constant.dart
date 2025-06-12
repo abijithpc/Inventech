@@ -13,3 +13,19 @@ TextStyle redTextStyle = TextStyle(color: Colors.red);
 
 const String defaultEmail = 'admin@inventech.com';
 const String defaultPassword = 'admin@123';
+
+//Colors
+final chatcolors = [
+  Colors.blue,
+  Colors.green,
+  Colors.orange,
+  Colors.purple,
+  Colors.red,
+  Colors.indigo,
+  Colors.teal,
+  Colors.pink,
+  Colors.cyan,
+  Colors.brown,
+  Colors.lime,
+  Colors.amber,
+];

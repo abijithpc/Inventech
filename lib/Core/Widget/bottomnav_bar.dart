@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inventech/Core/constant/constant.dart';
 import 'package:inventech/Home_Screen/presentation/Widget/dashboard.dart';
 import 'package:inventech/Home_Screen/presentation/page/home_screen.dart';
+import 'package:inventech/Product_Page/presentation/Bloc/product_bloc.dart';
+import 'package:inventech/Product_Page/presentation/Bloc/product_event.dart';
 import 'package:inventech/Product_Page/presentation/pages/add_product_page.dart';
 import 'package:inventech/Product_Page/presentation/pages/product_list_page.dart';
 import 'package:inventech/Profile_page/presentation/pages/profile_page.dart';
@@ -72,7 +75,13 @@ class _BottomnavBarState extends State<BottomnavBar> {
             type: BottomNavigationBarType.fixed,
             onTap: (index) {
               setState(() => currentIndex = index);
+              if (index == 1) {
+                Future.microtask(() {
+                  context.read<ProductBloc>().add(LoadProductsEvent());
+                });
+              }
             },
+
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.dashboard_outlined),

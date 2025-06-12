@@ -30,14 +30,18 @@ class ProductModel {
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
+    print(map);
     return ProductModel(
       id: map['id'] as int?,
-      name: map['name'] as String,
-      brand: map['brand'] as String,
-      model: map['model'] as String,
-      description: map['description'] as String,
-      images: (map['images'] as String).split(','),
-      createdAt: DateTime.parse(map['createdAt'] as String),
+      name: map['name']?.toString() ?? '',
+      brand: map['brand']?.toString() ?? '',
+      model: map['model']?.toString() ?? '',
+      description: map['description']?.toString() ?? '',
+      images: map['images'] != null ? (map['images'] as String).split(',') : [],
+      createdAt:
+          map['createdAt'] != null
+              ? DateTime.tryParse(map['createdAt']) ?? DateTime.now()
+              : DateTime.now(),
     );
   }
 }

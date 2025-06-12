@@ -5,6 +5,7 @@ Widget customTextFormField({
   required String hintText,
   required IconData prefixIcon,
   required FormFieldValidator<String> validator,
+  TextInputType? textInputType,
   Color? colors,
   bool obscureText = false,
   Widget? suffixIcon,
@@ -13,6 +14,7 @@ Widget customTextFormField({
   return TextFormField(
     controller: controller,
     obscureText: obscureText,
+    keyboardType: textInputType,
     decoration: InputDecoration(
       fillColor: colors,
       border: const OutlineInputBorder(),

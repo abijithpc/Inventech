@@ -195,10 +195,11 @@ class _AddProductPageState extends State<AddProductPage> {
 
               // Model
               customTextFormField(
+                textInputType: TextInputType.number,
                 colors: Colors.grey.shade100,
                 controller: modelController,
                 hintText: 'Model',
-                prefixIcon: Icons.devices,
+                prefixIcon: Icons.numbers,
                 validator:
                     (value) =>
                         value == null || value.isEmpty ? 'Enter model' : null,

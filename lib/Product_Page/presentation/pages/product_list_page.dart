@@ -42,14 +42,12 @@ class _ProductListPageState extends State<ProductListPage> {
           if (state is ProductLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProductLoaded) {
-
             if (state.products.isEmpty) {
               return const Center(child: Text('No products found.'));
             }
 
             return ProductCard(products: state.products);
           } else if (state is ProductFailure) {
-
             return Center(child: Text(state.message));
           }
           return const SizedBox();
