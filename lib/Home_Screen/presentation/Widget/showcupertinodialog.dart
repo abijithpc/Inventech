@@ -33,7 +33,6 @@ Future<void> showLogoutDialog(
               ),
               const SizedBox(height: 8),
               Text(
-                // ✅ removed `const` since `text` is dynamic
                 text,
                 textAlign: TextAlign.center,
                 style: const TextStyle(

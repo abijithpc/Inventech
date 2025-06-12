@@ -30,7 +30,6 @@ class ProductModel {
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
-    print(map);
     return ProductModel(
       id: map['id'] as int?,
       name: map['name']?.toString() ?? '',

@@ -21,9 +21,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<AddProductEvent>((event, emit) async {
       emit(ProductLoading());
       try {
-        print("Adding Product: ${event.product.name}");
-        print("AddProductEvent triggered with: ${event.product.toMap()}");
-
         await addProductUseCase(event.product);
         emit(ProductSuccess());
       } catch (e) {

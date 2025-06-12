@@ -98,6 +98,14 @@ class _ProductCardState extends State<ProductCard> {
                         context.read<ProductBloc>().add(
                           DeleteProductEvent(product.id!),
                         );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Product Removed successfully!',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        );
                       } else {
                         debugPrint(
                           "⚠️ Product ID is null or deletion not confirmed",

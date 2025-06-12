@@ -41,7 +41,4 @@ Future<void> init() async {
     () => ProductRepositoryimpl(sl()),
   );
 
-  // Add other dependencies here when needed
-  // e.g., sl.registerLazySingleton(() => SomeUseCase(sl()));
-  // e.g., sl.registerLazySingleton<SomeRepository>(() => SomeRepositoryImpl(sl()));
 }

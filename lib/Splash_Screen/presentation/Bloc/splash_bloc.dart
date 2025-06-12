@@ -12,14 +12,11 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     StartSplashAnimation event,
     Emitter<SplashState> emit,
   ) async {
-    // Delay for splash animation
     await Future.delayed(const Duration(milliseconds: 300));
     emit(const SplashAnimated());
 
-    // Wait a moment to show animation
     await Future.delayed(const Duration(seconds: 2));
 
-    // Check if default user exists (logged in)
     final db = await DBHelper.database;
     final result = await db.query(
       'users',

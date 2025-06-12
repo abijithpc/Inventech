@@ -8,7 +8,6 @@ import 'package:inventech/Product_Page/presentation/Bloc/product_bloc.dart';
 import 'package:inventech/Product_Page/presentation/Bloc/product_event.dart';
 import 'package:inventech/Product_Page/presentation/pages/add_product_page.dart';
 import 'package:inventech/Product_Page/presentation/pages/product_list_page.dart';
-import 'package:inventech/Profile_page/presentation/pages/profile_page.dart';
 
 class BottomnavBar extends StatefulWidget {
   const BottomnavBar({super.key});
@@ -58,10 +57,6 @@ class _BottomnavBarState extends State<BottomnavBar> {
           ],
         ),
         child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-          ),
           child: BottomNavigationBar(
             backgroundColor: kBlue,
             currentIndex: currentIndex,

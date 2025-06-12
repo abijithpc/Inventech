@@ -45,8 +45,6 @@ class ProductLocalDatasource {
       'images': product.images.join(','),
       'createdAt': product.createdAt.toIso8601String(),
     }, conflictAlgorithm: ConflictAlgorithm.replace);
-    final all = await db.query('products');
-    print("All Products in DB: $all");
   }
 
   Future<void> updateProduct(ProductModel product) async {
@@ -57,7 +55,6 @@ class ProductLocalDatasource {
       where: 'id = ?',
       whereArgs: [product.id],
     );
-    print("Updating product with ID: ${product.id}");
   }
 
   Future<void> deleteProducts(int id) async {

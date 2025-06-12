@@ -77,6 +77,14 @@ class _AddProductPageState extends State<AddProductPage> {
       context,
       MaterialPageRoute(builder: (context) => const BottomnavBar()),
     );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Product updated successfully!',
+          style: TextStyle(color: Colors.green),
+        ),
+      ),
+    );
   }
 
   @override
@@ -94,14 +102,16 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final isEdit = widget.products != null;
+
     return Scaffold(
       backgroundColor: kWhite,
       appBar: AppBar(
         title: Text(
-          isEdit ? 'EditProduct' : 'Add Product',
+          isEdit ? 'Edit Product' : 'Add Product',
           style: TextStyle(color: kBlack),
         ),
         backgroundColor: kWhite,
@@ -109,148 +119,155 @@ class _AddProductPageState extends State<AddProductPage> {
         elevation: 0,
         iconTheme: IconThemeData(color: kBlack),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Image Picker Button
-              Container(
-                width: double.infinity,
-                height: 150,
-                margin: const EdgeInsets.only(bottom: 16),
-                child: ElevatedButton.icon(
-                  onPressed: pickImages,
-                  icon: Icon(Icons.add_a_photo, color: kWhite),
-                  label: Text('Pick Images', style: whiteTextStyle),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kBlue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth:
+                      constraints.maxWidth > 600 ? 600 : constraints.maxWidth,
                 ),
-              ),
-
-              // Display Picked Images
-              if (_images.isNotEmpty)
-                SizedBox(
-                  height: 100,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _images.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.file(
-                            File(_images[index].path),
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                            errorBuilder:
-                                (context, error, stackTrace) =>
-                                    const Icon(Icons.broken_image),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Pick Image Button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 150,
+                        child: ElevatedButton.icon(
+                          onPressed: pickImages,
+                          icon: Icon(Icons.add_a_photo, color: kWhite),
+                          label: Text('Pick Images', style: whiteTextStyle),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kBlue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
                         ),
-                      );
-                    },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Show Picked Images
+                      if (_images.isNotEmpty)
+                        SizedBox(
+                          height: 100,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _images.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    File(_images[index].path),
+                                    width: size.width > 600 ? 120 : 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (_, __, ___) =>
+                                            const Icon(Icons.broken_image),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      const SizedBox(height: 20),
+
+                      // Name
+                      customTextFormField(
+                        colors: Colors.grey.shade100,
+                        controller: nameController,
+                        hintText: 'Name',
+                        prefixIcon: Icons.title,
+                        validator:
+                            (value) =>
+                                value == null || value.isEmpty
+                                    ? 'Enter product name'
+                                    : null,
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Brand
+                      customTextFormField(
+                        colors: Colors.grey.shade100,
+                        controller: brandController,
+                        hintText: 'Brand',
+                        prefixIcon: Icons.branding_watermark,
+                        validator:
+                            (value) =>
+                                value == null || value.isEmpty
+                                    ? 'Enter brand name'
+                                    : null,
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Model
+                      customTextFormField(
+                        textInputType: TextInputType.number,
+                        colors: Colors.grey.shade100,
+                        controller: modelController,
+                        hintText: 'Model',
+                        prefixIcon: Icons.numbers,
+                        validator:
+                            (value) =>
+                                value == null || value.isEmpty
+                                    ? 'Enter model'
+                                    : null,
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Description
+                      TextFormField(
+                        controller: descriptionController,
+                        maxLines: 8,
+                        minLines: 5,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey.shade100,
+                          hintText: 'Description',
+                          border: OutlineInputBorder(),
+                          alignLabelWithHint: true,
+                        ),
+                        validator:
+                            (value) =>
+                                value == null || value.isEmpty
+                                    ? 'Enter description'
+                                    : null,
+                      ),
+                      const SizedBox(height: 30),
+
+                      // Submit Button
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: submitProduct,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kBlue,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: Text(
+                            isEdit ? 'Update Product' : 'Submit',
+                            style: whiteTextStyle.copyWith(fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-
-              const SizedBox(height: 20),
-
-              // Name
-              customTextFormField(
-                colors: Colors.grey.shade100,
-                controller: nameController,
-                hintText: 'Name',
-                prefixIcon: Icons.title,
-                validator:
-                    (value) =>
-                        value == null || value.isEmpty
-                            ? 'Enter product name'
-                            : null,
               ),
-
-              const SizedBox(height: 16),
-
-              // Brand
-              customTextFormField(
-                colors: Colors.grey.shade100,
-                controller: brandController,
-                hintText: 'Brand',
-                prefixIcon: Icons.branding_watermark,
-                validator:
-                    (value) =>
-                        value == null || value.isEmpty
-                            ? 'Enter brand name'
-                            : null,
-              ),
-
-              const SizedBox(height: 16),
-
-              // Model
-              customTextFormField(
-                textInputType: TextInputType.number,
-                colors: Colors.grey.shade100,
-                controller: modelController,
-                hintText: 'Model',
-                prefixIcon: Icons.numbers,
-                validator:
-                    (value) =>
-                        value == null || value.isEmpty ? 'Enter model' : null,
-              ),
-
-              const SizedBox(height: 16),
-
-              // Description
-              TextFormField(
-                controller: descriptionController,
-                maxLines: 8,
-                minLines: 5,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade100,
-                  hintText: 'Description',
-                  border: OutlineInputBorder(),
-                  alignLabelWithHint: true,
-                ),
-                validator:
-                    (value) =>
-                        value == null || value.isEmpty
-                            ? 'Enter description'
-                            : null,
-              ),
-
-              const SizedBox(height: 30),
-
-              // Submit Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    submitProduct();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kBlue,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    isEdit ? 'Update Product' : 'Submit',
-                    style: whiteTextStyle.copyWith(fontSize: 16),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
