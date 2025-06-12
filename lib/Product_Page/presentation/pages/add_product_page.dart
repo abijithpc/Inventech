@@ -186,11 +186,20 @@ class _AddProductPageState extends State<AddProductPage> {
                         controller: nameController,
                         hintText: 'Name',
                         prefixIcon: Icons.title,
-                        validator:
-                            (value) =>
-                                value == null || value.isEmpty
-                                    ? 'Enter product name'
-                                    : null,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Enter product name';
+                          }
+
+                          final trimmedValue = value.trim();
+
+                          // Check if it contains only numbers or has any number
+                          if (RegExp(r'\d').hasMatch(trimmedValue)) {
+                            return 'Product name cannot contain numbers';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 16),
 
